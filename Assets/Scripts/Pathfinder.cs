@@ -42,15 +42,14 @@ public class Pathfinder : MonoBehaviour
         if (gridManager != null)
         {
             grid = gridManager.Grid;
+            startNode = gridManager.Grid[startCoordinates];
+            endNode = gridManager.Grid[endCoordinates];
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        startNode = gridManager.Grid[startCoordinates];
-        endNode = gridManager.Grid[endCoordinates];
-
         GetNewPath();
     }
 
@@ -65,9 +64,6 @@ public class Pathfinder : MonoBehaviour
             if (grid.ContainsKey(neighboursCoordinates))
             {
                 neighbours.Add(grid[neighboursCoordinates]);
-
-                grid[neighboursCoordinates].isExplored = true;
-                grid[currentSearchNode.coordinates].isPath = true;
             }
         }
 
@@ -84,6 +80,9 @@ public class Pathfinder : MonoBehaviour
 
     void BreadthFirstSearch(Vector2Int coordinates)
     {
+        startNode.isWalkable = true;
+        endNode.isWalkable = true;
+
         frontier.Clear();
         reached.Clear();
 
@@ -161,6 +160,6 @@ public class Pathfinder : MonoBehaviour
 
     public void NotifyReceivers()
     {
-        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
     }
 }

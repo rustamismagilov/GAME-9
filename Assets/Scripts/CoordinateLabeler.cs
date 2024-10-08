@@ -23,8 +23,6 @@ public class CoordinateLabeler : MonoBehaviour
         label.enabled = true;
 
         gridManager = FindObjectOfType<GridManager>();
-        
-        SetLabelColor();
         DisplayCoordinates();
     }
 

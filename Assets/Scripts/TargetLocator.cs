@@ -10,12 +10,6 @@ public class TargetLocator : MonoBehaviour
     [SerializeField] ParticleSystem projectileParticles;
     [SerializeField] float range = 15f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        target = FindObjectOfType<EnemyController>().transform;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -57,6 +51,8 @@ public class TargetLocator : MonoBehaviour
                 maxDistance = targetDistance;
             }
         }
+
+        target = closestTarget;
     }
 
     void Attack(bool isActive)

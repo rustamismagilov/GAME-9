@@ -6,8 +6,6 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField] Vector2Int gridSize;
     Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
-    //new Dictionary<coordinates[key]; coordinates, isWalkable[true/false]>();
-    //new Dictionary<number of the page[key]; name of the chapter, number of the pages>
 
     public Dictionary<Vector2Int, Node> Grid
     {

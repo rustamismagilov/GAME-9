@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] List<Node> path = new List<Node>();
+    List<Node> path = new List<Node>();
     [SerializeField][Range(0f, 5f)] float speed = 1f;
 
     Enemy enemy;

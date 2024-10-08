@@ -19,12 +19,13 @@ public class Bank : MonoBehaviour
     void Awake()
     {
         currentBalance = startingBalance;
+        UpdateDisplay();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateDisplay();
+        
     }
 
     // Update is called once per frame
