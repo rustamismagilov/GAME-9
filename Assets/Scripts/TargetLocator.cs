@@ -53,7 +53,10 @@ public class TargetLocator : MonoBehaviour
 
         float targetAngleX = targetRotation.eulerAngles.x;
 
-        if (targetAngleX > 180) targetAngleX -= 360;
+        if (targetAngleX > 180)
+        {
+            targetAngleX -= 360;
+        }
 
         targetAngleX = Mathf.Clamp(targetAngleX, -90f, 90f);
 

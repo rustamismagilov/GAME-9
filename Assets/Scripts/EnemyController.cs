@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("Recalculating path for: " + gameObject.name);
 
-        Vector2Int coordinates = new Vector2Int();
+        Vector2Int coordinates;
 
         if (resetPath)
         {
@@ -72,7 +72,14 @@ public class EnemyController : MonoBehaviour
             path = newPath;
             StartCoroutine(FollowPath());
         }
+        else
+        {
+            Debug.LogWarning("No valid path found for enemy: " + gameObject.name);
+            // Optionally, you can disable the enemy or handle the case where no path is found.
+            gameObject.SetActive(false);
+        }
     }
+
 
 
     void ReturnToStart()

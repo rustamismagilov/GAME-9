@@ -160,6 +160,16 @@ public class Pathfinder : MonoBehaviour
 
     public void NotifyReceivers()
     {
-        BroadcastMessage("RecalculatePath", true, SendMessageOptions.DontRequireReceiver);
+        NotifyEnemiesToRecalculatePath();
     }
+
+    public void NotifyEnemiesToRecalculatePath()
+    {
+        EnemyController[] enemies = FindObjectsOfType<EnemyController>();
+        foreach (EnemyController enemy in enemies)
+        {
+            enemy.RecalculatePath(false);
+        }
+    }
+
 }

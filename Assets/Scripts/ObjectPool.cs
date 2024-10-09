@@ -55,14 +55,13 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < pool.Length; i++)
         {
-            if (pool[i].activeInHierarchy == false)
+            if (!pool[i].activeInHierarchy)
             {
                 pool[i].SetActive(true);
-
-                pathfinder.NotifyReceivers();
-
+                pathfinder.NotifyReceivers(); // Trigger path recalculation for all enemies
                 return;
             }
         }
     }
+
 }
