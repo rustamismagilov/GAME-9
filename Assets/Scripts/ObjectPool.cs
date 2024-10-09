@@ -10,8 +10,12 @@ public class ObjectPool : MonoBehaviour
 
     GameObject[] pool;
 
+    Pathfinder pathfinder;
+
     void Awake()
     {
+        pathfinder = FindObjectOfType<Pathfinder>();
+
         PopulatePool();
     }
 
@@ -54,6 +58,9 @@ public class ObjectPool : MonoBehaviour
             if (pool[i].activeInHierarchy == false)
             {
                 pool[i].SetActive(true);
+
+                pathfinder.NotifyReceivers();
+
                 return;
             }
         }

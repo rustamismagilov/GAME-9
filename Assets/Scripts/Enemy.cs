@@ -15,12 +15,6 @@ public class Enemy : MonoBehaviour
         bank = FindObjectOfType<Bank>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void RewardGold()
     {
         if (bank == null)

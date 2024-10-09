@@ -160,6 +160,6 @@ public class Pathfinder : MonoBehaviour
 
     public void NotifyReceivers()
     {
-        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("RecalculatePath", true, SendMessageOptions.DontRequireReceiver);
     }
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class TargetLocator : MonoBehaviour
 {
     [SerializeField] Transform weapon;
-    Transform target;
-
+    [SerializeField] Transform rotator;
+    [SerializeField] Transform cannon;
     [SerializeField] ParticleSystem projectileParticles;
     [SerializeField] float range = 15f;
+
+    Transform target;
 
     // Update is called once per frame
     void Update()
@@ -19,9 +21,12 @@ public class TargetLocator : MonoBehaviour
 
     void AimWeapon()
     {
+        if (target == null) return;
+
         float targetDistance = Vector3.Distance(transform.position, target.position);
 
-        weapon.LookAt(target);
+        AimRotator();
+        AimCannon();
 
         if (targetDistance < range)
         {
@@ -31,6 +36,28 @@ public class TargetLocator : MonoBehaviour
         {
             Attack(false);
         }
+    }
+
+    void AimRotator()
+    {
+        Vector3 directionToTarget = target.position - rotator.position;
+        directionToTarget.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        rotator.rotation = targetRotation;
+    }
+
+    void AimCannon()
+    {
+        Vector3 directionToTarget = target.position - cannon.position;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+        float targetAngleX = targetRotation.eulerAngles.x;
+
+        if (targetAngleX > 180) targetAngleX -= 360;
+
+        targetAngleX = Mathf.Clamp(targetAngleX, -90f, 90f);
+
+        cannon.localRotation = Quaternion.Euler(targetAngleX, 0, 0);
     }
 
     void FindClosestTarget()
@@ -59,5 +86,14 @@ public class TargetLocator : MonoBehaviour
     {
         var emissionModule = projectileParticles.emission;
         emissionModule.enabled = isActive;
+
+        if (isActive && projectileParticles.isStopped)
+        {
+            projectileParticles.Play();
+        }
+        else if (!isActive && projectileParticles.isPlaying)
+        {
+            projectileParticles.Stop();
+        }
     }
 }

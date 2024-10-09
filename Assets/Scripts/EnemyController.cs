@@ -48,8 +48,10 @@ public class EnemyController : MonoBehaviour
         FinishPath();
     }
 
-    void RecalculatePath(bool resetPath)
+    public void RecalculatePath(bool resetPath)
     {
+        Debug.Log("Recalculating path for: " + gameObject.name);
+
         Vector2Int coordinates = new Vector2Int();
 
         if (resetPath)
@@ -63,9 +65,15 @@ public class EnemyController : MonoBehaviour
 
         StopAllCoroutines();
         path.Clear();
-        path = pathfinder.GetNewPath(coordinates);
-        StartCoroutine(FollowPath());
+        List<Node> newPath = pathfinder.GetNewPath(coordinates);
+
+        if (newPath != null && newPath.Count > 0)
+        {
+            path = newPath;
+            StartCoroutine(FollowPath());
+        }
     }
+
 
     void ReturnToStart()
     {
